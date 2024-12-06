@@ -21,3 +21,21 @@ X       X S       S
 So there are 8 combinations of XMAS.
 I can just iterate through every element
 and check against these 8 configurations
+
+part two is equally straight forwards
+
+M.S
+.A.
+M.S
+
+S.M
+.A.
+S.M
+
+M.M
+.A.
+S.S
+
+S.S
+.A.
+M.M

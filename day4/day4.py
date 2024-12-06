@@ -76,6 +76,42 @@ def check_for_xmas(word_search: list[list[str]], row: int, col: int) -> int:
 
     return count
 
+def check_for_samx(word_search: list[list[str]], row: int, col: int) -> bool:
+    count = 0
+    row_count = len(word_search)
+    col_count = len(word_search[0])
+
+    if (
+        not (row + 1 < row_count) or
+        row - 1 < 0 or
+        not (col + 1 < col_count) or
+        col - 1 < 0 or
+        word_search[row][col] != 'A'
+    ):
+        return False
+
+    return (
+        word_search[row - 1][col - 1] == 'M' and
+        word_search[row + 1][col - 1] == 'M' and
+        word_search[row - 1][col + 1] == 'S' and
+        word_search[row + 1][col + 1] == 'S'
+    ) or (
+        word_search[row - 1][col - 1] == 'S' and
+        word_search[row + 1][col - 1] == 'S' and
+        word_search[row - 1][col + 1] == 'M' and
+        word_search[row + 1][col + 1] == 'M'
+    ) or (
+        word_search[row - 1][col - 1] == 'S' and
+        word_search[row + 1][col - 1] == 'M' and
+        word_search[row - 1][col + 1] == 'S' and
+        word_search[row + 1][col + 1] == 'M'
+    ) or (
+        word_search[row - 1][col - 1] == 'M' and
+        word_search[row + 1][col - 1] == 'S' and
+        word_search[row - 1][col + 1] == 'M' and
+        word_search[row + 1][col + 1] == 'S'
+    )
+
 def part_one(word_search: list[list[str]]) -> int:
     count = 0
     for row in range(len(word_search)):
@@ -84,7 +120,17 @@ def part_one(word_search: list[list[str]]) -> int:
 
     return count
 
+def part_two(word_search: list[list[str]]) -> int:
+    count = 0
+    for row in range(len(word_search)):
+        for col in range(len(word_search[0])):
+            if check_for_samx(word_search, row, col):
+                count += 1
+    return count
+
 if __name__=="__main__":
     word_search = read_word_search("input.txt")
     result = part_one(word_search)
+    print(result)
+    result = part_two(word_search)
     print(result)

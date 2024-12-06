@@ -6,6 +6,7 @@ def read_word_search(filename: str) -> list[list[str]]:
             for char in line:
                 chars.append(char)
             word_search.append(chars)
+
     return word_search
 
 def check_for_xmas(word_search: list[list[str]], row: int, col: int) -> int:
@@ -128,7 +129,7 @@ def part_two(word_search: list[list[str]]) -> int:
                 count += 1
     return count
 
-if __name__=="__main__":
+if __name__ == "__main__":
     word_search = read_word_search("input.txt")
     result = part_one(word_search)
     print(result)

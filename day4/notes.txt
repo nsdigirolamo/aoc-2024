@@ -1,0 +1,23 @@
+Pretty straight forward.
+
+We have a 2x2 grid full of characters and need
+to find all the valid ocurrences of xmas.
+
+possible combinations:
+
+XMAS
+SAMX
+
+X S
+M A
+A M
+S X
+
+X       X S       S
+ M     M   A     A
+  A   A     M   M
+   S S       X X
+
+So there are 8 combinations of XMAS.
+I can just iterate through every element
+and check against these 8 configurations

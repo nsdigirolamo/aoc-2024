@@ -1,0 +1,30 @@
+X|Y
+if page X and Y are produced as part of an update,
+X must be printed before Y
+
+each line of input is an update, with the pages
+in the order of which they were printed
+
+start by identifying which updates are already in the right order.
+
+A rule only applies if both page numbers are part of the update.
+
+determine which updates are already in the correct order, then add
+their middle page numbers
+
+brainstorm solution to part 1:
+
+assemble the rules into a map.
+
+key: a page number
+value: tuple[set[int], set[int]]
+
+where the first set of the tuple are the numbers that must come
+before the key page number
+
+and the second set of the tuple are the numbers that must come
+after the key page number
+
+for each page number in an update, check behind and in front
+of the page and apply the rules.
+

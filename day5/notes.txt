@@ -28,3 +28,15 @@ after the key page number
 for each page number in an update, check behind and in front
 of the page and apply the rules.
 
+brainstorm solution to part 2:
+
+for each number, iterate through the update list and keep
+a count of the numbers that preceed and follow the current element.
+
+then, the index of the current element is just the
+preceeding count + 1.
+
+I spent way too much time overthinking this. At
+first I didn't think it would work, but then I realized
+no number has a missing rule, so it should work how I'm
+thinking

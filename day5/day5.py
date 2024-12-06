@@ -4,7 +4,6 @@ def read_rules(filename: str) -> dict[int, tuple[set[int], set[int]]]:
         for line in file:
             if '|' in line:
                 left, right = map(int, line.split('|'))
-
                 # Initialize rules for new numbers.
                 if left not in rules:
                     rules[left] = (set(), set())
@@ -77,10 +76,24 @@ def get_incorrectly_ordered_updates(rules, updates) -> list[list[int]]:
 def get_middle_number_sum(updates: list[list[int]]) -> int:
     sum = 0
     for update in updates:
-        middle_index = (len(update) // 2)
+        middle_index = len(update) // 2
         sum += update[middle_index]
 
     return sum
+
+def reorder_update(rules, update: list[int]) -> list[int]:
+    reordered_update = [0] * len(update)
+    for num1 in update:
+        preceeding_nums, _ = rules[num1]
+        preceed_count = 0
+        # Start counting the number of elements that must preceed num1.
+        for num2 in update:
+            if num2 in preceeding_nums:
+                preceed_count += 1
+        # The preceed count is num1's new position.
+        reordered_update[preceed_count] = num1
+
+    return reordered_update
 
 def part_one(rules, updates) -> int:
     correctly_ordered_updates = get_correctly_ordered_updates(rules, updates)
@@ -88,10 +101,20 @@ def part_one(rules, updates) -> int:
 
     return middle_number_sum
 
+def part_two(rules, updates) -> int:
+    incorrectly_ordered_updates = get_incorrectly_ordered_updates(rules, updates)
+    reordered_updates = []
+    for update in incorrectly_ordered_updates:
+        reordered_update = reorder_update(rules, update)
+        reordered_updates.append(reordered_update)
+    middle_number_sum = get_middle_number_sum(reordered_updates)
+
+    return middle_number_sum
+
 if __name__=="__main__":
-    rules = read_rules("sample.txt")
-    updates = read_updates("sample.txt")
+    rules = read_rules("input.txt")
+    updates = read_updates("input.txt")
     result = part_one(rules, updates)
     print(result)
-    incorrect_updates = get_incorrectly_ordered_updates(rules, updates)
-    print(incorrect_updates)
+    result = part_two(rules, updates)
+    print(result)

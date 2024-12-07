@@ -15,11 +15,24 @@ def find_possible_results(nums: list[int]) -> list[int]:
 
     if len(nums) == 1:
         results.append(local)
-        print(nums)
     else:
         for result in find_possible_results(nums[:-1]):
             results.append(result + local)
             results.append(result * local)
+
+    return results
+
+def find_possible_results_2(nums: list[int]) -> list[int]:
+    results = []
+    local = nums[-1]
+
+    if len(nums) == 1:
+        results.append(local)
+    else:
+        for result in find_possible_results_2(nums[:-1]):
+            results.append(result + local)
+            results.append(result * local)
+            results.append(int(str(result) + str(local))) # Concatenate ints
 
     return results
 
@@ -32,7 +45,19 @@ def part_one(equations: list[tuple[int, list[int]]]) -> int:
 
     return sum
 
+def part_two(equations: list[tuple[int, list[int]]]) -> int:
+    sum = 0
+    for test_value, nums in equations:
+        results = set(find_possible_results_2(nums))
+        if test_value in results:
+            sum += test_value
+
+    return sum
+
 if __name__ == "__main__":
     equations = read_equations("input.txt")
     result = part_one(equations)
+    print(result)
+    equations = read_equations("input.txt")
+    result = part_two(equations)
     print(result)

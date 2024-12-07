@@ -1,0 +1,46 @@
+Part one is simple. I just need to walk the
+path and place Xs where they dont exist.
+
+Part two.
+
+This in my mind is more difficult, but I think I have
+a possible solution:
+
+1. Walk the path as normal
+2. Instead of leaving Xs, leave a direction
+3. Once we come across a cell that's already been visited,
+we check the direction that we were last moving.
+    - If that previous direction is 90 degrees to the right,
+    this is a possible spot for a new obstacle to cause a loop.
+
+already seeing a possible hiccup in this plan
+
+....#.....
+....+---+#
+....|...|.
+..#.|...|.
+..+-+-+#|.
+..|.|.|.|.
+.#+-^-+-+.
+..|...|.#.
+#O+---+...
+......#...
+
+this loop would not be detected.
+
+So maybe instead of leaving a direction in just the places I've visited,
+I can leave a direction in every cell behind me as well. Then I just
+stop when I reach an obstacle behind me.
+
+This will result in a lot of work being done twice, but
+I think it may work.
+
+
+this is quickly getting out of hand.
+Simpler solution:
+
+just place an obstacle at every step, then check for
+looping.
+
+
+

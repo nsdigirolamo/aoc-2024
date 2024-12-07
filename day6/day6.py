@@ -3,7 +3,7 @@ def read_map(filename: str) -> list[list[int]]:
     with open(filename, 'r') as file:
         for line in file:
             row = []
-            for char in line:
+            for char in line.strip():
                 row.append(char)
             guard_map.append(row)
 
@@ -17,10 +17,12 @@ def find_guard(map: list[list[int]]) -> tuple[int, int]:
 
     return 0, 0
 
-def walk_map(map: list[list[int]]):
+def walk_map(map: list[list[int]]) -> list[list[int]]:
     guard_row, guard_col = find_guard(map)
     row_count, col_count = len(map), len(map[0])
     guard_facing = "up"
+
+    map[guard_row][guard_col] = 'X' # Place an X at the starting position.
 
     while (
         not (
@@ -30,8 +32,6 @@ def walk_map(map: list[list[int]]):
             (guard_facing == "right" and guard_col == col_count - 1)
         )
     ):
-        map[guard_row][guard_col] = 'X'
-
         if guard_facing == "up":
             if map[guard_row - 1][guard_col] != '#':
                 guard_row -= 1
@@ -56,6 +56,8 @@ def walk_map(map: list[list[int]]):
             else:
                 guard_facing = "up"
 
+        map[guard_row][guard_col] = 'X'
+
     return map
 
 def count_x(map: list[list[int]]):
@@ -68,9 +70,10 @@ def count_x(map: list[list[int]]):
     return count
 
 def part_one(map: list[list[int]]) -> int:
-    return 0
+    walked_map = walk_map(map)
+    return count_x(walked_map)
 
-if __name__=="__main__":
-    guard_map = read_map("sample.txt")
+if __name__ == "__main__":
+    guard_map = read_map("input.txt")
     result = part_one(guard_map)
     print(result)

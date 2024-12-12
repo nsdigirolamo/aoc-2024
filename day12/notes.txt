@@ -1,0 +1,17 @@
+part one:
+
+idea:
+
+First, create an "empty" garden that's the same
+size as the real garden.
+
+Next, iterate over each plot of the garden. If the
+plot is empty in our "empty" garden, start recursively
+looking for neighbors and track area and perimeter at the
+same time.
+
+For each visited plot in the recursive search, fill that
+spot in the empty garden
+
+after the recursive search is complete, add the calculated
+price to the total
